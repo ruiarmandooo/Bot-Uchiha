@@ -18,17 +18,13 @@ function detectPackageJsonStartDir() {
   // Tenta encontrar package.json em cwd e subidas até a raiz
   let dir = process.cwd();
   const root = path.parse(dir).root;
-
-  // Removida condição constante do `if (true)` incorretamente usada
-  while (dir !== root) {
+  while (true) {
     const candidate = path.join(dir, 'package.json');
-    if (fs.existsSync(candidate)) {
-      return candidate;
-    }
-    dir = path.dirname(dir); // Atualiza o diretório para subir até a raiz
+    if (fs.existsSync(candidate)) return candidate;
+    if (dir === root) break;
+    dir = path.dirname(dir);
   }
-
-  return null; // Retorna null caso não encontre package.json
+  return null;
 }
 
 function parseMajorFromRange(range) {
@@ -60,9 +56,7 @@ try {
       if (pkg && pkg.engines && pkg.engines.node) {
         minMajor = parseMajorFromRange(String(pkg.engines.node));
         if (minMajor) {
-          console.log(
-            `[engine-requirements] Detectado engines.node: >=${minMajor}.x de ${pkgPath}`,
-          );
+          // Ok, temos uma versão mínima vinda do package.json
         }
       }
     } catch (err) {
@@ -84,16 +78,16 @@ try {
         'Em GitHub Actions atualize a ação setup-node para usar uma versão compatível (ex: 16 ou 18):\n' +
         '  uses: actions/setup-node@v3\n' +
         '  with:\n' +
-        '    node-version: \'18\'\n',
+        "    node-version: '18'\n" +
+        '\nSe você precisar de compatibilidade diferente, ajuste "engines.node" em package.json ou o pipeline.',
     );
   }
 
-  // Versão ok
-  console.log(
-    `[engine-requirements] OK: Node.js ${nodeVersion} (requerido: >=${minMajor}.x)`,
-  );
+  // Tudo OK
   process.exit(0);
 } catch (err) {
-  const msg = err && err.message ? err.message : String(err);
-  exitWithMessage('Erro inesperado: ' + msg);
+  exitWithMessage(
+    'Erro durante a verificação de requisitos do Node: ' +
+      (err && err.message ? err.message : String(err)),
+  );
 }

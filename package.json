@@ -7,9 +7,9 @@
   "engines": {
     "node": ">=20"
   },
-  "scripts": {"lint:fix": "eslint --fix .",
+  "scripts": {
+    "lint": "eslint --fix .",
     "start": "node index.js",
-    "lint": "eslint .",
     "test": "echo No tests specified && exit 0",
     "build": "tsc"
   },
@@ -21,7 +21,9 @@
     "@eslint/js": "^9.39.1",
     "@types/node": "^24.10.1",
     "eslint": "^8.57.1",
+    "eslint-plugin-jest": "^29.2.1",
     "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "prettier": "^3.7.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

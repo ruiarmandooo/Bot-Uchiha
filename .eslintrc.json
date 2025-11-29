@@ -1,8 +1,9 @@
 {
   "env": {
     "node": true,
-    "es2021": true
+    "jest": true
   },
+  "plugins": ["jest"],
   "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -14,6 +15,7 @@
     "no-var": "error",
     "indent": ["error", 2],
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "prefer-const": "error"
   }
 }

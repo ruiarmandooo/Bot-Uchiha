@@ -1,27 +1,19 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "module": "nodenext",
-    "target": "esnext",
-    "types": ["node"],
-    "lib": ["esnext"],
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": false,
-    "strict": false,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "target": "ES2020",                 // Define o alvo da transpilação do código para ES2020
+    "module": "CommonJS",              // Define o sistema de modulação usado (Node.js usa CommonJS)
+    "strict": true,                    // Habilita todas as verificações rigorosas do TypeScript
+    "esModuleInterop": true,           // Permite interoperabilidade com módulos ES6
+    "skipLibCheck": true,              // Ignora verificações em arquivos de tipagem de bibliotecas
+    "forceConsistentCasingInFileNames": true, // Enforce uso consistente de maiúsculas/minúsculas
+    "outDir": "./dist"                 // Diretório de saída para os arquivos transpilados
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*",                        // Inclui todos os arquivos na pasta src e seus subdiretórios
+    "./engine-requirements.js"         // Inclui explicitamente o arquivo específico, fora da src/
+  ],
+  "exclude": [
+    "node_modules",                    // Exclui a pasta de dependências instaladas
+    "dist"                             // Exclui a pasta de saída gerada pelo TypeScript
+  ]
 }
